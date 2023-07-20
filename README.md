@@ -1,4 +1,4 @@
-# Examinations Timetabling Project (DODM Final Project)
+# Examination Timetabling Problem (DODM Final Project)
 
 Final project for the Discrete Optimization and Decision Making course A.Y. 2022/2023.
 
