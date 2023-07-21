@@ -8,4 +8,6 @@ main.py: Python code containing the functions to import the instances, create va
 
 instances: contains the files for the provided problem instances.
 
+solutions: contains the solution files for the provided problem instances. 
+
 project_report: report describing the reasoning behind the model's formulation and implementation and presenting results.
