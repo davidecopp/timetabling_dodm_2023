@@ -57,7 +57,7 @@ def do_obj_function(measure, n_exams, n_students, n_timeslots, conflict_matrix, 
                     obj_function += conflict_matrix[exam_1, exam_2]*(x[exam_2, timeslot+1]*x[exam_1, timeslot] + x[exam_2, timeslot]*x[exam_1, timeslot+1])
                                 
     else:
-        print("This measure is not implemented. Type 'penalty' or 'b2b_students'.")
+        print("This measure is not implemented. Type 'penalty' or 'b2b'.")
 
     return obj_function 
 
@@ -135,7 +135,7 @@ if __name__ == "__main__":
     parser.add_argument("instance", type=str,
                         help="[string] required argument - name of the instance ('test' or 'instanceXX').")
     parser.add_argument("measure", type=str,
-                        help="[string] required argument - name of the objective function ('penalty' or 'b2b_students').")
+                        help="[string] required argument - name of the objective function ('penalty' or 'b2b').")
     parser.add_argument("model_type", type=str,
                         help="[string] required argument - type of the model ('base' or 'advanced').")
     args = parser.parse_args()
