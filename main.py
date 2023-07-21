@@ -82,8 +82,8 @@ def add_constraints(model_type, n_exams, n_timeslots, conflict_matrix, model):
 
         # CONSTRAINT 1: At most 3 consecutive time slots can have conflicting exams
         for timeslot in range(n_timeslots):
-            model.addConstr(gp.quicksum(x[exam_1, timeslot]*x[exam_2, timeslot] for exam_1 in range(n_exams) for exam_2 in range(exam_1+1, n_exams)) <= 1000*z[timeslot])
-            model.addConstr(z[timeslot] <= gp.quicksum(x[exam_1, timeslot]*x[exam_2, timeslot] for exam_1 in range(n_exams) for exam_2 in range(exam_1+1, n_exams)))
+            model.addConstr(gp.quicksum(x[exam_1, timeslot]*x[exam_2, timeslot] for exam_1 in range(n_exams) for exam_2 in range(exam_1+1, n_exams) if conflict_matrix[exam_1, exam_2]>0) <= 1000*z[timeslot])
+            model.addConstr(z[timeslot] <= gp.quicksum(x[exam_1, timeslot]*x[exam_2, timeslot] for exam_1 in range(n_exams) for exam_2 in range(exam_1+1, n_exams) if conflict_matrix[exam_1, exam_2]>0))
         
         for timeslot in range(n_timeslots-3):    
             for exam in range(n_exams):
