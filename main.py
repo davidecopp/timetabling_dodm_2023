@@ -36,7 +36,7 @@ def do_variables(n_exams, n_timeslots, model):
         for exam in range(n_exams):
             x[exam, timeslot] = model.addVar(vtype=gp.GRB.BINARY, name=f'x[{exam},{timeslot}]')
             for exam_2 in range(exam+1, n_exams):
-                y[exam, exam_2, timeslot] = model.addVar(vtype=gp.GRB.INTEGER, name=f'extra_var[{exam},{exam_2},{timeslot}]')
+                y[exam, exam_2, timeslot] = model.addVar(vtype=gp.GRB.BINARY, name=f'extra_var[{exam},{exam_2},{timeslot}]')
     return x, y, z
 
 def do_obj_function(measure, n_exams, n_students, n_timeslots, conflict_matrix, x):
