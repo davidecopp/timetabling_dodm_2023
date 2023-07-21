@@ -86,12 +86,10 @@ def add_constraints(model_type, n_exams, n_timeslots, conflict_matrix, model):
             model.addConstr(z[timeslot] <= gp.quicksum(x[exam_1, timeslot]*x[exam_2, timeslot] for exam_1 in range(n_exams) for exam_2 in range(exam_1+1, n_exams) if conflict_matrix[exam_1, exam_2]>0))
         
         for timeslot in range(n_timeslots-3):    
-            for exam in range(n_exams):
-                model.addConstr(5-gp.quicksum(z[timeslot+i] for i in range(3)) >= 3*x[exam, timeslot+3])
+            model.addConstr(5-gp.quicksum(z[timeslot+i] for i in range(3)) >= 3*z[timeslot+3])
                 
         for timeslot in range(1, n_timeslots-3):    
-            for exam in range(n_exams):
-                model.addConstr(5-gp.quicksum(z[timeslot+i] for i in range(3)) >= 3*x[exam, timeslot-1])
+            model.addConstr(5-gp.quicksum(z[timeslot+i] for i in range(3)) >= 3*z[timeslot-1])
 
         # CONSTRAINT 2: If two consecutive time slots contain conflicting exams, then no conflicting exam can be scheduled in the next 3 time slots
         for timeslot in range(n_timeslots-4):
