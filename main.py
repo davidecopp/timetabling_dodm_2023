@@ -18,7 +18,7 @@ def do_conflict_matrix(enrol_matrix):
             conflict_matrix[exam_1,exam_2] = np.sum([stud[exam_1]*stud[exam_2] for stud in enrol_matrix])
     return conflict_matrix
 
-def create_model(model_name='ExamTimetabling', time_limit=50, pre_solve=-1, mip_gap=1e-4, threads=4):
+def create_model(model_name='ExamTimetabling', time_limit=1000, pre_solve=-1, mip_gap=1e-4, threads=4):
     model = gp.Model(model_name)
     model.setParam('TimeLimit', time_limit)
     model.setParam("Presolve", pre_solve)
@@ -36,7 +36,7 @@ def do_variables(n_exams, n_timeslots, model):
         for exam in range(n_exams):
             x[exam, timeslot] = model.addVar(vtype=gp.GRB.BINARY, name=f'x[{exam},{timeslot}]')
             for exam_2 in range(exam+1, n_exams):
-                y[exam, exam_2, timeslot] = model.addVar(vtype=gp.GRB.BINARY, name=f'extra_var[{exam},{exam_2},{timeslot}]')
+                y[exam, exam_2, timeslot] = model.addVar(vtype=gp.GRB.BINARY, name=f'y[{exam},{exam_2},{timeslot}]')
     return x, y, z
 
 def do_obj_function(measure, n_exams, n_students, n_timeslots, conflict_matrix, x):
